@@ -3,8 +3,8 @@ const smallMoons = document.querySelectorAll('.moon-small');
 // القمر الكبير
 const bigMoon = document.querySelector('.moon-big');
 
-// نصف قطر الدائرة فوق القمر الكبير
-const radius = 200;
+// نصف قطر الدائرة حول القمر الكبير
+const radius = 220;
 
 // زوايا بداية كل قمر (بدرجات)
 let angles = [0, 90, 180, 270];
@@ -17,7 +17,7 @@ function animateMoons() {
 
   smallMoons.forEach((moon, i) => {
     // حركة بطيئة جدًا
-    angles[i] += 0.08; // 🌀 أقل = أبطأ
+    angles[i] += 0.04; // 🌀 أقل = أبطأ
 
     const rad = angles[i] * (Math.PI / 180);
     const x = centerX + Math.cos(rad) * radius - moon.offsetWidth / 2;
@@ -32,5 +32,6 @@ function animateMoons() {
 
 // نبدأ التحريك
 animateMoons();
+
 
 
