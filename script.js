@@ -35,9 +35,9 @@ moons.forEach((moon, index) => {
 
     moon.style.left = ${x}px;
     moon.style.top = ${y}px;
-  });
 }
 
 createArc(".night-moon", 200);
 });
+
 
