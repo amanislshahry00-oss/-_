@@ -27,19 +27,53 @@ body {
     left: 75px;
 }
 
+.moon-container {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    margin: 60px auto;
+}
+
+.big-moon {
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, #d8c9f1, #9b7fd6);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .small-moon {
     position: absolute;
-    width: 90px;
-    height: 90px;
+    width: 100px;
+    height: 100px;
     background: #cbb5f7;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     text-align: center;
-    font-size: 12px;
-    padding: 10px;
+    font-size: 13px;
+    cursor: pointer;
+
+    top: 50%;
+    left: 50%;
+    transform-origin: 0 180px;
+}
+
+.small-moon:nth-child(2) {
+    transform: rotate(-60deg) translateX(180px) rotate(60deg);
+}
+
+.small-moon:nth-child(3) {
+    transform: rotate(0deg) translateX(180px) rotate(0deg);
+}
+
+.small-moon:nth-child(4) {
+    transform: rotate(60deg) translateX(180px) rotate(-60deg);
+}
 
     /* توزيع الأقمار حول القمر */
     top: calc(150px - 150px * sin(120deg * var(--i)));
