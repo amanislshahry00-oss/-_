@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>الأذكار</title>
+<title>أذكار مع الأقمار وأيام الأسبوع</title>
 <style>
   body {
     margin: 0;
@@ -33,6 +33,24 @@
     z-index: 10;
   }
 
+  .big-moon.checked::after {
+    content: '✅';
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    font-size: 40px;
+  }
+
+  .moons-container {
+    position: absolute;
+    bottom: 120px;
+    left: 50%;
+    width: 500px;
+    height: 300px;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
   .small-moon {
     width: 60px;
     height: 60px;
@@ -44,7 +62,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 11px;
     text-align: center;
     user-select: none;
     transition: transform 0.3s ease;
@@ -62,24 +80,23 @@
     z-index: 20;
   }
 
-  .moons-container {
-    position: absolute;
-    bottom: 120px;
-    left: 50%;
-    width: 500px;
-    height: 250px;
-    transform: translateX(-50%);
-    pointer-events: none; /* لتعطيل التفاعل بشكل مؤقت */
-  }
-
-  .moons-container > div {
-    pointer-events: auto; /* تفعيل التفاعل للأقمار الصغيرة */
-  }
-
   .moon-label {
-    font-size: 14px;
-    margin-top: 5px;
+    position: absolute;
+    width: 80px;
+    text-align: center;
     color: #d1c4e9;
+    font-size: 14px;
+    user-select: none;
+  }
+
+  /* أسماء الأيام تحت الأقمار */
+  .day-label {
+    position: absolute;
+    width: 80px;
+    text-align: center;
+    color: #b8a9e4;
+    font-size: 13px;
+    bottom: -25px;
     user-select: none;
   }
 
@@ -89,14 +106,23 @@
     background: rgba(0, 0, 0, 0.4);
     border-radius: 10px;
     padding: 15px 20px;
-    min-height: 120px;
+    min-height: 140px;
     box-shadow: 0 0 15px rgba(130, 110, 230, 0.7);
+    color: #f0eaff;
   }
 
   .azkar-text {
     font-size: 18px;
     text-align: center;
     min-height: 60px;
+    line-height: 1.4;
+  }
+
+  .repeat-info {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #d4cfff;
+    text-align: center;
   }
 
   .btn-next {
@@ -117,12 +143,20 @@
     background: #a48ee0;
   }
 
-  .big-moon.checked::after {
-    content: '✅';
-    position: absolute;
-    top: 10px;
-    right: 30px;
-    font-size: 40px;
+  .btn-home {
+    margin-top: 20px;
+    background: #5a4ca6;
+    border: none;
+    color: white;
+    font-size: 14px;
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: none;
+  }
+  .btn-home:hover {
+    background: #7e66cc;
   }
 </style>
 </head>
@@ -131,12 +165,14 @@
 <div class="big-moon" id="bigMoon"></div>
 
 <div class="moons-container" id="moonsContainer">
-  <!-- الأقمار الصغيرة ستُوزع هنا -->
+  <!-- الأقمار الصغيرة وأسماء الأيام توضع هنا -->
 </div>
 
 <div class="azkar-box" id="azkarBox" style="display:none;">
   <div class="azkar-text" id="azkarText"></div>
+  <div class="repeat-info" id="repeatInfo"></div>
   <button class="btn-next" id="btnNext">التالي</button>
+  <button class="btn-home" id="btnHome">العودة للصفحة الرئيسية</button>
 </div>
 
 <script>
@@ -144,6 +180,7 @@
   const azkarData = [
     {
       name: 'أذكار المساء',
+      days: ['٢', '٣', '٤', '٥', '٦', '٧', '٨'], // تمثيل أيام (يمكن تعديل النص)
       azkar: [
         "اللهم بك أصبحنا وبك أمسينا وبك نحيا وبك نموت وإليك النشور",
         "أعوذ بكلمات الله التامات من شر ما خلق",
@@ -152,6 +189,7 @@
     },
     {
       name: 'أذكار قيام الليل',
+      days: ['٩', '١٠', '١١', '١٢', '١٣', '١٤', '١٥'],
       azkar: [
         "سبحان الله والحمد لله ولا إله إلا الله والله أكبر",
         "اللهم اجعلني من التوابين واجعلني من المتطهرين",
@@ -160,6 +198,7 @@
     },
     {
       name: 'أذكار قبل النوم',
+      days: ['١٦', '١٧', '١٨', '١٩', '٢٠', '٢١', '٢٢'],
       azkar: [
         "باسمك ربي وضعت جنبي وبك أرفعه",
         "اللهم قني عذابك يوم تبعث عبادك",
@@ -168,10 +207,15 @@
     }
   ];
 
+  // أسماء الأيام (مثال عربي مختصر 7 أيام)
+  const weekDays = ['الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت', 'الأحد'];
+
   const moonsContainer = document.getElementById('moonsContainer');
   const azkarBox = document.getElementById('azkarBox');
   const azkarText = document.getElementById('azkarText');
+  const repeatInfo = document.getElementById('repeatInfo');
   const btnNext = document.getElementById('btnNext');
+  const btnHome = document.getElementById('btnHome');
   const bigMoon = document.getElementById('bigMoon');
 
   const radius = 180; // نصف قطر نصف الدائرة
@@ -192,9 +236,17 @@
       const div = document.createElement('div');
       div.classList.add('small-moon');
       div.textContent = moon.name;
-      div.style.left = `${centerX + Math.cos(Math.PI * i / 2) * radius - 30}px`; // -30 نصف عرض القمر الصغير
+      div.style.left = `${centerX + Math.cos(Math.PI * i / 2) * radius - 30}px`;
       div.style.top = `${centerY - Math.sin(Math.PI * i / 2) * radius - 30}px`;
       div.dataset.index = i;
+
+      // إضافة اسماء الأيام تحت القمر
+      const dayLabel = document.createElement('div');
+      dayLabel.classList.add('day-label');
+      dayLabel.style.left = `${centerX + Math.cos(Math.PI * i / 2) * radius - 40}px`;
+      dayLabel.style.top = `${centerY - Math.sin(Math.PI * i / 2) * radius + 40}px`;
+      dayLabel.textContent = weekDays[i]; // اسم اليوم من المصفوفة
+      moonsContainer.appendChild(dayLabel);
 
       div.addEventListener('click', () => {
         if(currentMoonIndex !== i){
@@ -212,6 +264,7 @@
 
   function animateMoons() {
     const moonDivs = moonsContainer.querySelectorAll('.small-moon');
+    const dayLabels = moonsContainer.querySelectorAll('.day-label');
     moonDivs.forEach((moon, i) => {
       angles[i] += speed;
 
@@ -221,7 +274,9 @@
       moon.style.left = `${x}px`;
       moon.style.top = `${y}px`;
 
-      // علامة صح إذا اكتمل القمر
+      dayLabels[i].style.left = `${x - 10}px`;
+      dayLabels[i].style.top = `${y + 40}px`;
+
       if (completedMoons[i]) {
         moon.classList.add('checked');
       } else {
@@ -239,27 +294,28 @@
     currentRepeatCount = 0;
     azkarBox.style.display = 'block';
     btnNext.disabled = false;
+    btnHome.style.display = 'none';
     showCurrentAzkar();
   }
 
-  // عرض الذكر الحالي
+  // عرض الذكر الحالي مع عدد التكرار
   function showCurrentAzkar() {
     const azkarList = azkarData[currentMoonIndex].azkar;
-    azkarText.textContent = `${azkarList[currentAzkarIndex]} (التكرار: ${currentRepeatCount + 1}/${maxRepeat})`;
+    azkarText.textContent = azkarList[currentAzkarIndex];
+    repeatInfo.textContent = `التكرار: ${currentRepeatCount + 1} / ${maxRepeat}`;
   }
 
-  // عند الضغط على التالي (للتأكيد على قول الذكر)
+  // عند الضغط على التالي (تأكيد الذكر)
   btnNext.addEventListener('click', () => {
     currentRepeatCount++;
     if (currentRepeatCount < maxRepeat) {
       showCurrentAzkar();
     } else {
-      // انتهى التكرار الحالي، ننتقل للذكر التالي
+      // انتهاء تكرار الذكر الحالي، ننتقل للذكر التالي
       currentRepeatCount = 0;
       currentAzkarIndex++;
 
       if (currentAzkarIndex >= azkarData[currentMoonIndex].azkar.length) {
-        // انتهى كل الأذكار للقمر
         completedMoons[currentMoonIndex] = true;
         azkarBox.style.display = 'none';
         currentMoonIndex = null;
@@ -276,19 +332,25 @@
   function checkAllCompleted() {
     if (completedMoons.every(c => c)) {
       bigMoon.classList.add('checked');
-      alert('مبروك! أتممت جميع الأذكار.');
-      // هنا ممكن ترجع للصفحة الرئيسية أو أي إجراء ثاني
+      btnHome.style.display = 'block';
     }
   }
 
-  // انشاء الأقمار والبدء بالدوران
+  // زر العودة للصفحة الرئيسية
+  btnHome.addEventListener('click', () => {
+    alert('العودة إلى الصفحة الرئيسية');
+    // هنا تقدر تغير التوجيه حسب التطبيق أو تضيف وظيفة أخرى
+  });
+
+  // إنشاء الأقمار وبدء الحركة
   createMoons();
   animateMoons();
-
 </script>
 
 </body>
 </html>
+
+
 
 
 
