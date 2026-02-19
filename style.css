@@ -48,18 +48,15 @@ body {
   background: radial-gradient(circle, #fff, #bbb);
   border-radius: 50%;
   box-shadow: 0 0 15px rgba(255,255,255,0.4);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  /* نعومة الحركة عندما يتوقف الـ hover */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* مواقع الأقمار */
-.m1 { top: 25%; left: 40%; }
-.m2 { top: 15%; left: 60%; }
-.m3 { top: 35%; left: 30%; }
-.m4 { top: 35%; left: 70%; }
-
-/* حركة وتكبير عند hover */
+/* تأثير الـ hover */
 .moon-small:hover {
-  transform: scale(1.5) rotate(15deg);
+  transform: scale(1.5);
   box-shadow: 0 0 30px rgba(255,255,255,0.6);
 }
+
 
