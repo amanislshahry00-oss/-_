@@ -1,99 +1,49 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>الأذكار</title>
-<style>
-  body {
-    margin: 0;
-    height: 100vh;
-    background: radial-gradient(circle at center, #001a4d, #000022);
-    overflow: hidden;
-    position: relative;
-  }
+const smallMoons = document.querySelectorAll('.moon-small');
+const bigMoon = document.querySelector('.moon-big');
 
-  .moon-big {
-    width: 150px;
-    height: 150px;
-    background-color: white;
-    border-radius: 50%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.9);
-    z-index: 10;
-  }
+const radius = 220;  // نصف قطر الدائرة
+const count = smallMoons.length;
 
-  .moon-small {
-    width: 40px;
-    height: 40px;
-    background-color: lightgray;
-    border-radius: 50%;
-    position: absolute;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
-    transition: transform 0.1s linear;
-  }
-</style>
-</head>
-<body>
+// الزوايا المبدئية موزعة بالتساوي
+let angles = [];
+for (let i = 0; i < count; i++) {
+  angles.push((2 * Math.PI / count) * i);
+}
 
-<div class="moon-big"></div>
+const speed = 0.002;  // سرعة الدوران بطيئة
 
-<div class="moon-small"></div>
-<div class="moon-small"></div>
-<div class="moon-small"></div>
+function animateMoons() {
+  const rect = bigMoon.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
 
-<script>
-  const smallMoons = document.querySelectorAll('.moon-small');
-  const bigMoon = document.querySelector('.moon-big');
+  smallMoons.forEach((moon, i) => {
+    angles[i] += speed;
 
-  const radius = 220;  // نصف قطر الدائرة
-  const count = smallMoons.length;
+    const x = centerX + Math.cos(angles[i]) * radius - moon.offsetWidth / 2;
+    const y = centerY + Math.sin(angles[i]) * radius - moon.offsetHeight / 2;
 
-  // الزوايا المبدئية موزعة بالتساوي
-  let angles = [];
-  for (let i = 0; i < count; i++) {
-    angles.push((2 * Math.PI / count) * i);
-  }
+    moon.style.left = `${x}px`;
+    moon.style.top = `${y}px`;
 
-  const speed = 0.002;  // سرعة الدوران بطيئة
+    // تحكم بالظهور فوق أو تحت القمر الكبير
+    if (Math.sin(angles[i]) > 0) {
+      moon.style.zIndex = 20;  // أمام القمر الكبير
+    } else {
+      moon.style.zIndex = 0;   // خلف القمر الكبير
+    }
 
-  function animateMoons() {
-    const rect = bigMoon.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
+    // تغيير الحجم لإحساس بالعمق
+    const scale = 0.7 + 0.3 * (Math.sin(angles[i]) + 1) / 2;
+    moon.style.transform = `scale(${scale})`;
+  });
 
-    smallMoons.forEach((moon, i) => {
-      angles[i] += speed;
+  requestAnimationFrame(animateMoons);
+}
 
-      const x = centerX + Math.cos(angles[i]) * radius - moon.offsetWidth / 2;
-      const y = centerY + Math.sin(angles[i]) * radius - moon.offsetHeight / 2;
+animateMoons();
 
-      moon.style.left = `${x}px`;
-      moon.style.top = `${y}px`;
 
-      // تحكم بالظهور فوق أو تحت القمر الكبير
-      if (Math.sin(angles[i]) > 0) {
-        moon.style.zIndex = 20;  // أمام القمر الكبير
-      } else {
-        moon.style.zIndex = 0;   // خلف القمر الكبير
-      }
-
-      // تغيير الحجم لإحساس بالعمق
-      const scale = 0.7 + 0.3 * (Math.sin(angles[i]) + 1) / 2;
-      moon.style.transform = `scale(${scale})`;
-    });
-
-    requestAnimationFrame(animateMoons);
-  }
-
-  animateMoons();
-</script>
-
-</body>
-</html>
 
 
 
