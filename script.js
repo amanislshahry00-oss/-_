@@ -37,36 +37,50 @@ if (document.getElementById("azkarContainer")) {
 
     const container = document.getElementById("azkarContainer");
 
-    data.list.forEach(zikr => {
+    let completedCount = 0;
 
-        let count = 0;
+data.list.forEach(zikr => {
 
-        const box = document.createElement("div");
-        box.className = "zikr-box";
+    let count = 0;
 
-        const text = document.createElement("p");
-        text.innerText = zikr;
+    const box = document.createElement("div");
+    box.className = "zikr-box";
 
-        const btn = document.createElement("button");
-        btn.className = "counter-btn";
-        btn.innerText = "0 / 3";
+    const text = document.createElement("p");
+    text.innerText = zikr;
 
-        btn.onclick = function () {
-            if (count < 3) {
-                count++;
-                btn.innerText = count + " / 3";
+    const btn = document.createElement("button");
+    btn.className = "counter-btn";
+    btn.innerText = "0 / 3";
+
+    btn.onclick = function () {
+        if (count < 3) {
+            count++;
+            btn.innerText = count + " / 3";
+        }
+
+        if (count === 3) {
+            btn.innerText = "✔";
+            btn.classList.add("done");
+            btn.disabled = true;
+
+            completedCount++;
+
+            // إذا كل الأذكار خلصت
+            if (completedCount === data.list.length) {
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1000); // يرجع بعد ثانية
             }
-            if (count === 3) {
-                btn.innerText = "✔";
-                btn.classList.add("done");
-            }
-        };
+        }
+    };
 
-        box.appendChild(text);
-        box.appendChild(btn);
-        container.appendChild(box);
-    });
+    box.appendChild(text);
+    box.appendChild(btn);
+    container.appendChild(box);
+});
 }
+
 
 
 
