@@ -1,56 +1,55 @@
 body {
   margin: 0;
+  height: 100vh;
+  overflow: hidden;
   font-family: sans-serif;
-  transition: 1s;
 }
 
 .sky {
-  height: 100vh;
   position: relative;
-  text-align: center;
-  color: white;
+  height: 100vh;
+  background: radial-gradient(circle at top, #2b2b6e, #000);
 }
 
-/* وضع الليل */
-.night {
-  background: linear-gradient(#1a1a40, #000);
+/* القمر الكبير */
+.moon-big {
+  position: absolute;
+  bottom: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, #fff, #d9d9d9);
+  border-radius: 50%;
 }
 
-/* وضع النهار */
-.day {
-  background: linear-gradient(#87ceeb, #fdf6c3);
-}
-
-.main-body {
-  width: 200px;
+/* مدار الأقمار */
+.orbit {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
   height: 200px;
+}
+
+/* الأقمار الصغيرة */
+.moon.small {
+  position: absolute;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  margin: 100px auto 30px;
-}
-
-/* قمر */
-.night .main-body {
-  background: radial-gradient(circle, #fff, #ccc);
-}
-
-/* شمس */
-.day .main-body {
-  background: radial-gradient(circle, #ffcc00, #ff9900);
-}
-
-.items {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.item {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.3);
+  background: radial-gradient(circle, #eee, #bbb);
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer; 
+  font-size: 12px;
+  cursor: pointer;
 }
+
+/* توزيعهم على شكل قوس */
+.moon.small:nth-child(1) { left: 0; top: 120px; }
+.moon.small:nth-child(2) { left: 70px; top: 60px; }
+.moon.small:nth-child(3) { left: 160px; top: 30px; }
+.moon.small:nth-child(4) { right: 70px; top: 60px; }
+.moon.small:nth-child(5) { right: 0; top: 120px; }
