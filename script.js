@@ -2,7 +2,7 @@ const smallMoons = document.querySelectorAll('.moon-small');
 const bigMoon = document.querySelector('.moon-big');
 
 const radiusX = 220; // عرض القوس
-const radiusY = 100; // ارتفاع القوس، نصف دائرة
+const radiusY = 120; // ارتفاع القوس، نصف دائرة
 
 let angles = [0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2];
 
@@ -32,6 +32,7 @@ function animateMoons() {
     const scale = 0.7 + 0.3 * (Math.sin(angles[i]) + 1) / 2;
     moon.style.transform = `scale(${scale})`;
   });
+
 
 
 
