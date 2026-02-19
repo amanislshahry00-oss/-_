@@ -16,7 +16,7 @@ moons.forEach((moon, index) => {
 
   moon.style.left = ${x}px;
   moon.style.top = ${y}px;
-
+}
   function createArc(selector, radius) {
   const moons = document.querySelectorAll(selector);
   const arc = moons[0].parentElement;
@@ -39,5 +39,6 @@ moons.forEach((moon, index) => {
 
 createArc(".night-moon", 200);
 });
+
 
 
