@@ -19,7 +19,7 @@ function animateMoons() {
     // حركة بطيئة جدًا
     angles[i] += 0.04; // 🌀 أقل = أبطأ
 
-    const rad = angles[i] * (Math.PI / 180);
+    
     const x = centerX + Math.cos(rad) * radius - moon.offsetWidth / 2;
     const y = centerY + Math.sin(rad) * radius - moon.offsetHeight / 2;
 
@@ -32,6 +32,7 @@ function animateMoons() {
 
 // نبدأ التحريك
 animateMoons();
+
 
 
 
