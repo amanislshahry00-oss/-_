@@ -2,7 +2,7 @@ const moons = document.querySelectorAll(".moon.small");
 const orbit = document.querySelector(".orbit");
 
 const radius = 220; // نصف قطر القوس
-const centerX = orbit.offsetWidth / 2;
+const centerX = orbit.offsetWidth ;
 const centerY = orbit.offsetHeight;
 
 const startAngle = Math.PI;      // بداية من اليسار
@@ -17,6 +17,7 @@ moons.forEach((moon, index) => {
   moon.style.left = `${x}px`;
   moon.style.top = `${y}px`;
 });
+
 
 
 
