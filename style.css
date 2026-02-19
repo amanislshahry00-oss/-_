@@ -64,7 +64,37 @@ body {
   cursor: pointer;
   transition: 0.3s;
 }
+.moon.small {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #bbb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  cursor: pointer;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(255,255,255,0.3);
+  transition: 0.3s;
+}
 
+.moon-1 {
+  right: 12%;
+  bottom: 38%;
+}
+
+.moon-2 {
+  right: 6%;
+  bottom: 20%;
+}
+
+
+.side-moon:hover {
+  transform: scale(1.1);
+}
 .moon.small:hover {
   transform: scale(1.1);
 }
