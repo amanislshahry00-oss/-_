@@ -1,37 +1,99 @@
-const smallMoons = document.querySelectorAll('.moon-small');
-const bigMoon = document.querySelector('.moon-big');
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>دوران الأقمار حول القمر الكبير</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle at center, #001a4d, #000022);
+    overflow: hidden;
+    position: relative;
+  }
 
-const radiusX = 220; // عرض القوس
-const radiusY = 120; // ارتفاع القوس، نصف دائرة
+  .moon-big {
+    width: 150px;
+    height: 150px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.9);
+    z-index: 10;
+  }
 
-let angles = [0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2];
+  .moon-small {
+    width: 40px;
+    height: 40px;
+    background-color: lightgray;
+    border-radius: 50%;
+    position: absolute;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    transition: transform 0.1s linear;
+  }
+</style>
+</head>
+<body>
 
-function animateMoons() {
-  const rect = bigMoon.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
+<div class="moon-big"></div>
 
-  smallMoons.forEach((moon, i) => {
-    angles[i] += 0.02; // سرعة الدوران
+<div class="moon-small"></div>
+<div class="moon-small"></div>
+<div class="moon-small"></div>
 
-    // حساب إحداثيات نصف دائرة مائلة
-    const x = centerX + Math.cos(angles[i]) * radiusX - moon.offsetWidth / 2;
-    const y = centerY - Math.sin(angles[i]) * radiusY - moon.offsetHeight / 2;
+<script>
+  const smallMoons = document.querySelectorAll('.moon-small');
+  const bigMoon = document.querySelector('.moon-big');
 
-    moon.style.left = `${x}px`;
-    moon.style.top = `${y}px`;
+  const radius = 220;  // نصف قطر الدائرة
+  const count = smallMoons.length;
 
-    // تغيير الظهور أمام أو خلف القمر الكبير
-    if (Math.sin(angles[i]) > 0) {
-      moon.style.zIndex = 2; // أمام القمر الكبير
-    } else {
-      moon.style.zIndex = 0; // خلف القمر الكبير
-    }
+  // الزوايا المبدئية موزعة بالتساوي
+  let angles = [];
+  for (let i = 0; i < count; i++) {
+    angles.push((2 * Math.PI / count) * i);
+  }
 
-    // تغيير الحجم لإحساس بالعمق
-    const scale = 0.7 + 0.3 * (Math.sin(angles[i]) + 1) / 2;
-    moon.style.transform = `scale(${scale})`;
-  });
+  const speed = 0.002;  // سرعة الدوران بطيئة
+
+  function animateMoons() {
+    const rect = bigMoon.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    smallMoons.forEach((moon, i) => {
+      angles[i] += speed;
+
+      const x = centerX + Math.cos(angles[i]) * radius - moon.offsetWidth / 2;
+      const y = centerY + Math.sin(angles[i]) * radius - moon.offsetHeight / 2;
+
+      moon.style.left = `${x}px`;
+      moon.style.top = `${y}px`;
+
+      // تحكم بالظهور فوق أو تحت القمر الكبير
+      if (Math.sin(angles[i]) > 0) {
+        moon.style.zIndex = 20;  // أمام القمر الكبير
+      } else {
+        moon.style.zIndex = 0;   // خلف القمر الكبير
+      }
+
+      // تغيير الحجم لإحساس بالعمق
+      const scale = 0.7 + 0.3 * (Math.sin(angles[i]) + 1) / 2;
+      moon.style.transform = `scale(${scale})`;
+    });
+
+    requestAnimationFrame(animateMoons);
+  }
+
+  animateMoons();
+</script>
+
+</body>
+</html>
 
 
 
