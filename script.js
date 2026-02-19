@@ -1,44 +1,74 @@
-const moons = document.querySelectorAll(".moon.small");
-const orbit = document.querySelector(".orbit");
-
-const radius = 220; // نصف قطر القوس
-const centerX = orbit.offsetWidth / 2;
-const centerY = orbit.offsetHeight;
-
-const startAngle = Math.PI;      // بداية من اليسار
-const endAngle = 2 * Math.PI;    // نهاية عند اليمين
-
-moons.forEach((moon, index) => {
-  const angle = startAngle + (index / (moons.length - 1)) * (endAngle - startAngle);
-
-  const x = centerX + radius * Math.cos(angle) - 35;
-  const y = centerY + radius * Math.sin(angle) - 35;
-
-  moon.style.left = `${x}px`;
-  moon.style.top = `${y}px`;
-
-  function createArc(selector, radius) {
-  const moons = document.querySelectorAll(selector);
-  const arc = moons[0].parentElement;
-
-  const centerX = arc.offsetWidth / 2;
-  const centerY = arc.offsetHeight;
-
-  const startAngle = Math.PI + 0.4;   // بداية القوس
-  const endAngle = 2 * Math.PI - 0.4; // نهاية القوس
-
-  moons.forEach((moon, index) => {
-    const angle = startAngle + (index / (moons.length - 1)) * (endAngle - startAngle);
-
-    const x = centerX + radius * Math.cos(angle) - (moon.offsetWidth / 2);
-    const y = centerY + radius * Math.sin(angle) - (moon.offsetHeight / 2);
-
-    moon.style.left = ${x}px;
-    moon.style.top = ${y}px;
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: sans-serif;
 }
 
-createArc(".night-moon", 200);
-});
+.sky {
+  position: relative;
+  height: 100vh;
+  background: radial-gradient(circle at top, #2c2c6c, #0f0f2b);
+}
+
+/* النجوم */
+.stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url("https://www.transparenttextures.com/patterns/stardust.png");
+  animation: twinkle 4s infinite alternate;
+  opacity: 0.6;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.4; }
+  to { opacity: 0.8; }
+}
+
+/* القمر الكبير */
+.moon-big {
+  position: absolute;
+  bottom: -180px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, #ffffff, #dcdcdc);
+  border-radius: 50%;
+  box-shadow: 0 0 50px rgba(255,255,255,0.4);
+}
+
+/* المدار */
+.orbit {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 250px;
+}
+
+/* الأقمار الصغيرة */
+.moon.small {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #bbb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.moon.small:hover {
+  transform: scale(1.1);
+}
+
 
 
 
