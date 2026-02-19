@@ -1,3 +1,4 @@
+/* ====== BODY & BACKGROUND ====== */
 body {
   margin: 0;
   height: 100vh;
@@ -11,7 +12,7 @@ body {
   background: radial-gradient(circle at top, #2c2c6c, #0f0f2b);
 }
 
-/* النجوم */
+/* ====== النجوم ====== */
 .stars {
   position: absolute;
   width: 100%;
@@ -26,7 +27,7 @@ body {
   to { opacity: 0.8; }
 }
 
-/* القمر الكبير */
+/* ====== القمر الكبير ====== */
 .moon-big {
   position: absolute;
   bottom: -180px;
@@ -39,71 +40,26 @@ body {
   box-shadow: 0 0 50px rgba(255,255,255,0.4);
 }
 
-/* المدار */
-.orbit {
+/* ====== الأقمار الصغيرة ====== */
+.moon-small {
   position: absolute;
-  bottom: 120px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 500px;
-  height: 250px;
-}
-
-/* الأقمار الصغيرة */
-.moon.small {
-  position: absolute;
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, #fff, #bbb);
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #fff, #bbb);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.moon.small {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #fff, #bbb);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  cursor: pointer;
-  text-align: center;
-  cursor: pointer;
-  box-shadow: 0 0 15px rgba(255,255,255,0.3);
-  transition: 0.3s;
+  box-shadow: 0 0 15px rgba(255,255,255,0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.moon-1 {
-  right: 12%;
-  bottom: 38%;
+/* مواقع الأقمار */
+.m1 { top: 25%; left: 40%; }
+.m2 { top: 15%; left: 60%; }
+.m3 { top: 35%; left: 30%; }
+.m4 { top: 35%; left: 70%; }
+
+/* حركة وتكبير عند hover */
+.moon-small:hover {
+  transform: scale(1.5) rotate(15deg);
+  box-shadow: 0 0 30px rgba(255,255,255,0.6);
 }
 
-.moon-2 {
-  right: 6%;
-  bottom: 20%;
-
-  .moon-3 {
-  right: 18%;
-  bottom: 22%;
-    
-.moon-4 {
-  right: 10%;
-  bottom: 10%;
-    
-}
-
-
-.side-moon:hover {
-  transform: scale(1.1);
-}
-.moon.small:hover {
-  transform: scale(1.1);
-}
