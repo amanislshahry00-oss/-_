@@ -49,34 +49,22 @@ body {
   height: 250px;
 }
 
-.night-arc {
+/* الأقمار الصغيرة */
+.moon.small {
   position: absolute;
-  bottom: 42%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 500px;
-  height: 250px;
-  pointer-events: none;
-}
-
-.night-moon {
-  position: absolute;
-  width: 85px;
-  height: 85px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #ffffff, #cfcfcf);
+  background: radial-gradient(circle at 30% 30%, #fff, #bbb);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 11px;
   text-align: center;
-  font-size: 12px;
-  padding: 8px;
   cursor: pointer;
-  pointer-events: auto;
-  box-shadow: 0 0 18px rgba(255,255,255,0.35);
   transition: 0.3s;
 }
 
-.night-moon:hover {
-  transform: scale(1.08);
+.moon.small:hover {
+  transform: scale(1.1);
 }
