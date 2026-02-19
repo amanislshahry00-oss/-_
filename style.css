@@ -18,7 +18,7 @@ body {
   width: 100%;
   height: 100%;
   background: url("https://www.transparenttextures.com/patterns/stardust.png");
-  animation: twinkle 4s infinite alternate;
+  animation: twinkle 5s infinite alternate;
   opacity: 0.6;
 }
 
@@ -43,20 +43,16 @@ body {
 /* ====== الأقمار الصغيرة ====== */
 .moon-small {
   position: absolute;
-  width: 80px;
-  height: 80px;
-  background: radial-gradient(circle, #fff, #bbb);
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle, #fff, #ccc);
   border-radius: 50%;
   box-shadow: 0 0 15px rgba(255,255,255,0.4);
-
-  /* نعومة الحركة عندما يتوقف الـ hover */
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 /* تأثير الـ hover */
 .moon-small:hover {
-  transform: scale(1.5);
+  transform: scale(1.4);
   box-shadow: 0 0 30px rgba(255,255,255,0.6);
 }
-
-
