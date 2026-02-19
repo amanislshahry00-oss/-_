@@ -39,6 +39,8 @@ if (document.getElementById("azkarContainer")) {
 
     let completedCount = 0;
 
+let completedCount = 0;
+
 data.list.forEach(zikr => {
 
     let count = 0;
@@ -80,6 +82,7 @@ data.list.forEach(zikr => {
     container.appendChild(box);
 });
 }
+
 
 
 
