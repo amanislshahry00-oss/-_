@@ -7,93 +7,290 @@
 <style>
   body {
     margin: 0;
+    background: radial-gradient(circle at center, #1a1a40, #000022);
     height: 100vh;
-    background: radial-gradient(circle at center, #001a4d, #000022);
     overflow: hidden;
-    position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 40px;
   }
 
-  .moon-big {
-    width: 150px;
-    height: 150px;
-    background-color: white;
-    border-radius: 50%;
+  .big-moon {
     position: absolute;
+    bottom: 0;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.9);
+    width: 300px;
+    height: 150px;
+    background: linear-gradient(135deg, #a48ee0, #7e66cc);
+    border-top-left-radius: 150px;
+    border-top-right-radius: 150px;
+    transform: translateX(-50%);
+    box-shadow: 0 0 30px #7e66cc;
     z-index: 10;
   }
 
-  .moon-small {
-    width: 40px;
-    height: 40px;
-    background-color: lightgray;
+  .small-moon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #c3b7f9, #8371d4);
     border-radius: 50%;
     position: absolute;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
-    transition: transform 0.1s linear;
+    box-shadow: 0 0 10px #a292d9;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    text-align: center;
+    user-select: none;
+    transition: transform 0.3s ease;
+  }
+
+  .small-moon.checked::after {
+    content: '✅';
+    position: absolute;
+    bottom: -12px;
+    font-size: 14px;
+  }
+
+  .small-moon:hover {
+    transform: scale(1.2);
+    z-index: 20;
+  }
+
+  .moons-container {
+    position: absolute;
+    bottom: 120px;
+    left: 50%;
+    width: 500px;
+    height: 250px;
+    transform: translateX(-50%);
+    pointer-events: none; /* لتعطيل التفاعل بشكل مؤقت */
+  }
+
+  .moons-container > div {
+    pointer-events: auto; /* تفعيل التفاعل للأقمار الصغيرة */
+  }
+
+  .moon-label {
+    font-size: 14px;
+    margin-top: 5px;
+    color: #d1c4e9;
+    user-select: none;
+  }
+
+  .azkar-box {
+    margin-top: 200px;
+    width: 320px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    padding: 15px 20px;
+    min-height: 120px;
+    box-shadow: 0 0 15px rgba(130, 110, 230, 0.7);
+  }
+
+  .azkar-text {
+    font-size: 18px;
+    text-align: center;
+    min-height: 60px;
+  }
+
+  .btn-next {
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background: #7e66cc;
+    border: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .btn-next:hover {
+    background: #a48ee0;
+  }
+
+  .big-moon.checked::after {
+    content: '✅';
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    font-size: 40px;
   }
 </style>
 </head>
 <body>
 
-<div class="moon-big"></div>
+<div class="big-moon" id="bigMoon"></div>
 
-<div class="moon-small"></div>
-<div class="moon-small"></div>
-<div class="moon-small"></div>
+<div class="moons-container" id="moonsContainer">
+  <!-- الأقمار الصغيرة ستُوزع هنا -->
+</div>
+
+<div class="azkar-box" id="azkarBox" style="display:none;">
+  <div class="azkar-text" id="azkarText"></div>
+  <button class="btn-next" id="btnNext">التالي</button>
+</div>
 
 <script>
-  const smallMoons = document.querySelectorAll('.moon-small');
-  const bigMoon = document.querySelector('.moon-big');
+  // بيانات الأذكار لكل قمر مع تكرار 3 مرات لكل ذكر
+  const azkarData = [
+    {
+      name: 'أذكار المساء',
+      azkar: [
+        "اللهم بك أصبحنا وبك أمسينا وبك نحيا وبك نموت وإليك النشور",
+        "أعوذ بكلمات الله التامات من شر ما خلق",
+        "رضيت بالله رباً وبالإسلام ديناً وبمحمد صلى الله عليه وسلم نبياً"
+      ]
+    },
+    {
+      name: 'أذكار قيام الليل',
+      azkar: [
+        "سبحان الله والحمد لله ولا إله إلا الله والله أكبر",
+        "اللهم اجعلني من التوابين واجعلني من المتطهرين",
+        "اللهم اغفر لي ولوالدي وللمؤمنين والمؤمنات"
+      ]
+    },
+    {
+      name: 'أذكار قبل النوم',
+      azkar: [
+        "باسمك ربي وضعت جنبي وبك أرفعه",
+        "اللهم قني عذابك يوم تبعث عبادك",
+        "اللهم أسلمت نفسي إليك وفوضت أمري إليك"
+      ]
+    }
+  ];
 
-  const radius = 220;  // نصف قطر الدائرة
-  const count = smallMoons.length;
+  const moonsContainer = document.getElementById('moonsContainer');
+  const azkarBox = document.getElementById('azkarBox');
+  const azkarText = document.getElementById('azkarText');
+  const btnNext = document.getElementById('btnNext');
+  const bigMoon = document.getElementById('bigMoon');
 
-  // الزوايا المبدئية موزعة بالتساوي
-  let angles = [];
-  for (let i = 0; i < count; i++) {
-    angles.push((2 * Math.PI / count) * i);
+  const radius = 180; // نصف قطر نصف الدائرة
+  const centerX = 250; // منتصف container عرض 500px / 2
+  const centerY = 200; // ارتفاع نصف دائرة فوق القمر الكبير
+
+  let currentMoonIndex = null;
+  let currentAzkarIndex = 0;
+  let currentRepeatCount = 0;
+  const maxRepeat = 3;
+
+  // حفظ حالة إتمام الأذكار لكل قمر
+  const completedMoons = [false, false, false];
+
+  // إنشاء الأقمار الصغيرة وتوزيعها نصف دائري
+  function createMoons() {
+    azkarData.forEach((moon, i) => {
+      const div = document.createElement('div');
+      div.classList.add('small-moon');
+      div.textContent = moon.name;
+      div.style.left = `${centerX + Math.cos(Math.PI * i / 2) * radius - 30}px`; // -30 نصف عرض القمر الصغير
+      div.style.top = `${centerY - Math.sin(Math.PI * i / 2) * radius - 30}px`;
+      div.dataset.index = i;
+
+      div.addEventListener('click', () => {
+        if(currentMoonIndex !== i){
+          startAzkar(i);
+        }
+      });
+
+      moonsContainer.appendChild(div);
+    });
   }
 
-  const speed = 0.002;  // سرعة الدوران بطيئة
+  // تحديث موقع الأقمار للدوران (نصف دائرة بطيء)
+  let angles = [0, Math.PI / 2, Math.PI];
+  const speed = 0.001;
 
   function animateMoons() {
-    const rect = bigMoon.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    smallMoons.forEach((moon, i) => {
+    const moonDivs = moonsContainer.querySelectorAll('.small-moon');
+    moonDivs.forEach((moon, i) => {
       angles[i] += speed;
 
-      const x = centerX + Math.cos(angles[i]) * radius - moon.offsetWidth / 2;
-      const y = centerY + Math.sin(angles[i]) * radius - moon.offsetHeight / 2;
+      const x = centerX + Math.cos(angles[i]) * radius - 30;
+      const y = centerY - Math.sin(angles[i]) * radius - 30;
 
       moon.style.left = `${x}px`;
       moon.style.top = `${y}px`;
 
-      // تحكم بالظهور فوق أو تحت القمر الكبير
-      if (Math.sin(angles[i]) > 0) {
-        moon.style.zIndex = 20;  // أمام القمر الكبير
+      // علامة صح إذا اكتمل القمر
+      if (completedMoons[i]) {
+        moon.classList.add('checked');
       } else {
-        moon.style.zIndex = 0;   // خلف القمر الكبير
+        moon.classList.remove('checked');
       }
-
-      // تغيير الحجم لإحساس بالعمق
-      const scale = 0.7 + 0.3 * (Math.sin(angles[i]) + 1) / 2;
-      moon.style.transform = `scale(${scale})`;
     });
 
     requestAnimationFrame(animateMoons);
   }
 
+  // بدء عرض الأذكار لقمر معين
+  function startAzkar(moonIndex) {
+    currentMoonIndex = moonIndex;
+    currentAzkarIndex = 0;
+    currentRepeatCount = 0;
+    azkarBox.style.display = 'block';
+    btnNext.disabled = false;
+    showCurrentAzkar();
+  }
+
+  // عرض الذكر الحالي
+  function showCurrentAzkar() {
+    const azkarList = azkarData[currentMoonIndex].azkar;
+    azkarText.textContent = `${azkarList[currentAzkarIndex]} (التكرار: ${currentRepeatCount + 1}/${maxRepeat})`;
+  }
+
+  // عند الضغط على التالي (للتأكيد على قول الذكر)
+  btnNext.addEventListener('click', () => {
+    currentRepeatCount++;
+    if (currentRepeatCount < maxRepeat) {
+      showCurrentAzkar();
+    } else {
+      // انتهى التكرار الحالي، ننتقل للذكر التالي
+      currentRepeatCount = 0;
+      currentAzkarIndex++;
+
+      if (currentAzkarIndex >= azkarData[currentMoonIndex].azkar.length) {
+        // انتهى كل الأذكار للقمر
+        completedMoons[currentMoonIndex] = true;
+        azkarBox.style.display = 'none';
+        currentMoonIndex = null;
+        currentAzkarIndex = 0;
+        currentRepeatCount = 0;
+        checkAllCompleted();
+      } else {
+        showCurrentAzkar();
+      }
+    }
+  });
+
+  // تحقق إذا تم إتمام كل الأقمار الثلاثة
+  function checkAllCompleted() {
+    if (completedMoons.every(c => c)) {
+      bigMoon.classList.add('checked');
+      alert('مبروك! أتممت جميع الأذكار.');
+      // هنا ممكن ترجع للصفحة الرئيسية أو أي إجراء ثاني
+    }
+  }
+
+  // انشاء الأقمار والبدء بالدوران
+  createMoons();
   animateMoons();
+
 </script>
 
 </body>
 </html>
+
+
 
 
 
