@@ -1,47 +1,73 @@
-const smallMoons = document.querySelectorAll('.moon-small');
-const bigMoon = document.querySelector('.moon-big');
-
-const radius = 220;  // نصف قطر الدائرة
-const count = smallMoons.length;
-
-// الزوايا المبدئية موزعة بالتساوي
-let angles = [];
-for (let i = 0; i < count; i++) {
-  angles.push((2 * Math.PI / count) * i);
+function openPage(type) {
+    localStorage.setItem("type", type);
+    window.location.href = "azkar.html";
 }
 
-const speed = 0.002;  // سرعة الدوران بطيئة
-
-function animateMoons() {
-  const rect = bigMoon.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
-
-  smallMoons.forEach((moon, i) => {
-    angles[i] += speed;
-
-    const x = centerX + Math.cos(angles[i]) * radius - moon.offsetWidth / 2;
-    const y = centerY + Math.sin(angles[i]) * radius - moon.offsetHeight / 2;
-
-    moon.style.left = `${x}px`;
-    moon.style.top = `${y}px`;
-
-    // تحكم بالظهور فوق أو تحت القمر الكبير
-    if (Math.sin(angles[i]) > 0) {
-      moon.style.zIndex = 20;  // أمام القمر الكبير
-    } else {
-      moon.style.zIndex = 0;   // خلف القمر الكبير
+const azkarData = {
+    masaa: {
+        title: "أذكار المساء",
+        list: [
+            "سبحان الله",
+            "الحمدلله",
+            "الله أكبر"
+        ]
+    },
+    qiyam: {
+        title: "قيام الليل",
+        list: [
+            "اللهم اغفر لي",
+            "اللهم اهدني"
+        ]
+    },
+    sleep: {
+        title: "قبل النوم",
+        list: [
+            "باسمك اللهم أموت وأحيا",
+            "آية الكرسي"
+        ]
     }
+};
 
-    // تغيير الحجم لإحساس بالعمق
-    const scale = 0.7 + 0.3 * (Math.sin(angles[i]) + 1) / 2;
-    moon.style.transform = `scale(${scale})`;
-  });
+if (document.getElementById("azkarContainer")) {
 
-  requestAnimationFrame(animateMoons);
+    const type = localStorage.getItem("type");
+    const data = azkarData[type];
+
+    document.getElementById("pageTitle").innerText = data.title;
+
+    const container = document.getElementById("azkarContainer");
+
+    data.list.forEach(zikr => {
+
+        let count = 0;
+
+        const box = document.createElement("div");
+        box.className = "zikr-box";
+
+        const text = document.createElement("p");
+        text.innerText = zikr;
+
+        const btn = document.createElement("button");
+        btn.className = "counter-btn";
+        btn.innerText = "0 / 3";
+
+        btn.onclick = function () {
+            if (count < 3) {
+                count++;
+                btn.innerText = count + " / 3";
+            }
+            if (count === 3) {
+                btn.innerText = "✔";
+                btn.classList.add("done");
+            }
+        };
+
+        box.appendChild(text);
+        box.appendChild(btn);
+        container.appendChild(box);
+    });
 }
 
-animateMoons();
 
 
 
