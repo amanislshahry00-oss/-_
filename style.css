@@ -3,49 +3,86 @@ body {
     font-family: sans-serif;
     text-align: center;
     transition: 0.5s;
+    overflow: hidden;
 }
 
+/* الوضع النهاري */
 .day {
-    background: linear-gradient(#87CEEB, #fff);
+    background: linear-gradient(#87CEEB, #ffffff);
+    color: black;
 }
 
+/* الوضع الليلي */
 .night {
-    background: linear-gradient(#1e1e3f, #000);
+    background: linear-gradient(#1e1e3f, #000000);
     color: white;
 }
 
-.sky {
-    position: relative;
-    margin-top: 50px;
+.main {
+    padding-top: 40px;
 }
 
-.bigBody {
-    width: 250px;
-    height: 150px;
-    border-radius: 150px 150px 0 0;
-    margin: auto;
-}
-
-.smallBodies {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: -50px;
-}
-
-.body {
-    width: 80px;
-    height: 80px;
+.bigMoon {
+    width: 280px;
+    height: 280px;
+    background: #ddd;
     border-radius: 50%;
+    margin: 80px auto 0;
+    box-shadow: 0 0 40px rgba(255,255,255,0.4);
+}
+
+.moonArc {
+    position: absolute;
+    bottom: 280px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+}
+
+.moon {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: #cfcfcf;
     cursor: pointer;
     position: relative;
+    transition: 0.3s;
 }
 
-.done::after {
-    content: "✓";
+.moon:hover {
+    transform: scale(1.1);
+}
+
+.moon.done::after {
+    content: "✔";
     position: absolute;
-    top: 25px;
-    left: 30px;
-    font-size: 24px;
-    font-weight: bold;
+    top: 12px;
+    left: 18px;
+    font-size: 20px;
+    color: green;
+}
+
+/* صفحة الأذكار */
+
+.azkarPage {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+#zekrText {
+    font-size: 22px;
+    max-width: 80%;
+}
+
+#counterBtn {
+    padding: 20px 50px;
+    font-size: 22px;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
 }
