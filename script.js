@@ -32,14 +32,13 @@ if (document.getElementById("azkarContainer")) {
 
     const type = localStorage.getItem("type");
     const data = azkarData[type];
-
+    if (!data) return;
     document.getElementById("pageTitle").innerText = data.title;
 
     const container = document.getElementById("azkarContainer");
 
     let completedCount = 0;
 
-let completedCount = 0;
 
 data.list.forEach(zikr => {
 
@@ -82,6 +81,7 @@ data.list.forEach(zikr => {
     container.appendChild(box);
 });
 }
+
 
 
 
