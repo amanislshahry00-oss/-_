@@ -16,14 +16,12 @@ const textDiv = document.getElementById("zekrText");
 const btn = document.getElementById("counterBtn");
 
 let count = 0;
-
 textDiv.innerText = zekr.text;
 btn.innerText = `0 / ${zekr.count}`;
 
 btn.onclick = () => {
     count++;
     btn.innerText = `${count} / ${zekr.count}`;
-
     if (count === zekr.count) {
         localStorage.setItem("done_" + index, true);
         setTimeout(() => {
@@ -31,3 +29,4 @@ btn.onclick = () => {
         }, 800);
     }
 };
+
