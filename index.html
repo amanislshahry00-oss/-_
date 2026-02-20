@@ -7,26 +7,27 @@
 </head>
 <body>
 
-<h1 class="title">الأذكار</h1>
+<div id="mainScreen" class="container">
+    <h1 id="modeTitle"></h1>
 
-<div class="moon-container">
+    <div class="sky">
+        <div class="bigBody" id="bigBody"></div>
 
-    <div class="big-moon"></div>
-
-    <div class="small-moon" style="--i:0" onclick="openPage('masaa')">
-        <span>أذكار المساء</span>
+        <div class="smallBodies">
+            <div class="body" onclick="openSection('one')" id="one"></div>
+            <div class="body" onclick="openSection('two')" id="two"></div>
+            <div class="body" onclick="openSection('three')" id="three"></div>
+        </div>
     </div>
-
-    <div class="small-moon" style="--i:1" onclick="openPage('qiyam')">
-        <span>قيام الليل</span>
-    </div>
-
-    <div class="small-moon" style="--i:2" onclick="openPage('sleep')">
-        <span>قبل النوم</span>
-    </div>
-
 </div>
 
+<div id="azkarScreen" class="hidden">
+    <h2 id="sectionTitle"></h2>
+    <div id="azkarContainer"></div>
+</div>
+
+<script src="azkar.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
+
