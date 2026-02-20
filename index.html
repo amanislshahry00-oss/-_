@@ -2,32 +2,33 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>الأذكار</title>
+<title>رحلة الأذكار</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="mainScreen" class="container">
+<div class="main">
+
     <h1 id="modeTitle"></h1>
 
     <div class="sky">
-        <div class="bigBody" id="bigBody"></div>
+        <div class="bigMoon"></div>
 
-        <div class="smallBodies">
-            <div class="body" onclick="openSection('one')" id="one"></div>
-            <div class="body" onclick="openSection('two')" id="two"></div>
-            <div class="body" onclick="openSection('three')" id="three"></div>
+        <div class="moonArc">
+            <div class="moon" data-key="0"></div>
+            <div class="moon" data-key="1"></div>
+            <div class="moon" data-key="2"></div>
+            <div class="moon" data-key="3"></div>
+            <div class="moon" data-key="4"></div>
+            <div class="moon" data-key="5"></div>
+            <div class="moon" data-key="6"></div>
+            <div class="moon" data-key="7"></div>
         </div>
     </div>
+
 </div>
 
-<div id="azkarScreen" class="hidden">
-    <h2 id="sectionTitle"></h2>
-    <div id="azkarContainer"></div>
-</div>
-
-<script src="azkar.js"></script>
-<script src="script.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
 
