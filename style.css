@@ -1,34 +1,153 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<title>رحلة الأذكار</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body class="night"> <!-- غيرها إلى day لو تبي وضع صباح -->
+body {
+    margin: 0;
+    font-family: "Tahoma", sans-serif;
+    text-align: center;
+    height: 100vh;
+    overflow: hidden;
+    transition: 0.5s;
+}
 
-<div class="container">
+/* الوضع النهاري */
+.day {
+    background: linear-gradient(to bottom, #87CEEB, #ffffff);
+    color: #222;
+}
 
-    <h1 class="title">رحلة الأذكار</h1>
+/* الوضع الليلي */
+.night {
+    background: linear-gradient(to bottom, #2b1e4a, #0f0c29);
+    color: white;
+}
 
-    <div class="sky">
+/* الحاوية */
+.container {
+    position: relative;
+    width: 380px;
+    height: 750px;
+    border-radius: 40px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #4e3b86, #1b1535);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+    padding-top: 40px;
+    margin: auto;
+}
 
-        <div class="bigMoon"></div>
+/* العنوان */
+.title {
+    font-size: 26px;
+    margin-bottom: 30px;
+}
 
-        <div class="moonArc">
-            <div class="moon done"></div>
-            <div class="moon done"></div>
-            <div class="moon"></div>
-            <div class="moon"></div>
-            <div class="moon"></div>
-            <div class="moon"></div>
-            <div class="moon"></div>
-            <div class="moon"></div>
-        </div>
+/* القمر الكبير */
+.bigMoon {
+    position: absolute;
+    bottom: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle at 30% 30%, #f1e9ff, #b9a7e6);
+    border-radius: 50%;
+    box-shadow: 0 0 100px rgba(255,255,255,0.5);
+    animation: glow 2s infinite alternate;
+}
 
-    </div>
+/* أنيميشن توهج */
+@keyframes glow {
+    0% { box-shadow: 0 0 80px rgba(255,255,255,0.3); }
+    100% { box-shadow: 0 0 120px rgba(255,255,255,0.6); }
+}
 
-</div>
+/* القوس */
+.moonArc {
+    position: absolute;
+    bottom: 220px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    height: 180px;
+}
 
-</body>
-</html>
+/* الأقمار الصغيرة */
+.moon {
+    width: 55px;
+    height: 55px;
+    background: radial-gradient(circle at 30% 30%, #ffffff, #c8c8c8);
+    border-radius: 50%;
+    position: absolute;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.moon:hover {
+    transform: scale(1.15);
+}
+
+/* توزيع الأقمار 8 أقمار */
+.moon:nth-child(1) { top: 130px; left: 0px; }
+.moon:nth-child(2) { top: 70px; left: 40px; }
+.moon:nth-child(3) { top: 25px; left: 90px; }
+.moon:nth-child(4) { top: 5px; left: 140px; }
+.moon:nth-child(5) { top: 5px; left: 200px; }
+.moon:nth-child(6) { top: 25px; left: 250px; }
+.moon:nth-child(7) { top: 70px; left: 300px; }
+.moon:nth-child(8) { top: 130px; left: 340px; }
+
+/* علامة ✔ */
+.moon.done::after {
+    content: "✔";
+    position: absolute;
+    top: 15px;
+    left: 18px;
+    font-size: 20px;
+    color: #00ff99;
+    font-weight: bold;
+}
+
+/* نجوم متحركة */
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(2px 2px at 20% 30%, white, transparent),
+        radial-gradient(1.5px 1.5px at 70% 60%, white, transparent),
+        radial-gradient(1.5px 1.5px at 40% 80%, white, transparent),
+        radial-gradient(2px 2px at 85% 25%, white, transparent),
+        radial-gradient(1.5px 1.5px at 10% 70%, white, transparent);
+    animation: twinkle 5s infinite linear;
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.6; }
+    100% { opacity: 0.2; }
+}
+
+/* صفحة الأذكار */
+.azkarPage {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    background: linear-gradient(to bottom, #4e3b86, #1b1535);
+}
+
+#zekrText {
+    font-size: 26px;
+    max-width: 80%;
+}
+
+#counterBtn {
+    padding: 20px 50px;
+    font-size: 22px;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+}
+
+</style>
