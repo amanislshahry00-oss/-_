@@ -1,86 +1,66 @@
-function openPage(type) {
-    localStorage.setItem("type", type);
-    window.location.href = "azkar.html";
+const hour = new Date().getHours();
+const body = document.body;
+const bigBody = document.getElementById("bigBody");
+const modeTitle = document.getElementById("modeTitle");
+
+if (hour >= 5 && hour < 17) {
+    body.classList.add("day");
+    bigBody.style.background = "orange";
+    modeTitle.innerText = "الوضع النهاري";
+
+    document.getElementById("one").innerText = "أذكار الصباح";
+    document.getElementById("two").innerText = "الضحى";
+    document.getElementById("three").innerText = "الاستيقاظ";
+
+} else {
+    body.classList.add("night");
+    bigBody.style.background = "#ccc";
+    modeTitle.innerText = "الوضع الليلي";
+
+    document.getElementById("one").innerText = "أذكار المساء";
+    document.getElementById("two").innerText = "قيام الليل";
+    document.getElementById("three").innerText = "قبل النوم";
 }
 
-const azkarData = {
-    masaa: {
-        title: "أذكار المساء",
-        list: [
-            "سبحان الله",
-            "الحمدلله",
-            "الله أكبر"
-        ]
-    },
-    qiyam: {
-        title: "قيام الليل",
-        list: [
-            "اللهم اغفر لي",
-            "اللهم اهدني"
-        ]
-    },
-    sleep: {
-        title: "قبل النوم",
-        list: [
-            "باسمك اللهم أموت وأحيا",
-            "آية الكرسي"
-        ]
+function openSection(id) {
+
+    let key;
+
+    if (body.classList.contains("day")) {
+        key = id === "one" ? "morning" :
+              id === "two" ? "duha" : "wake";
+    } else {
+        key = id === "one" ? "evening" :
+              id === "two" ? "night" : "sleep";
     }
-};
 
-if (document.getElementById("azkarContainer")) {
-
-    const type = localStorage.getItem("type");
-    const data = azkarData[type];
-
-    document.getElementById("pageTitle").innerText = data.title;
+    document.getElementById("mainScreen").classList.add("hidden");
+    document.getElementById("azkarScreen").classList.remove("hidden");
 
     const container = document.getElementById("azkarContainer");
+    container.innerHTML = "";
 
-    let completedCount = 0;
+    azkarData[key].forEach(item => {
 
-let completedCount = 0;
+        let count = 0;
 
-data.list.forEach(zikr => {
+        const div = document.createElement("div");
+        const btn = document.createElement("button");
 
-    let count = 0;
+        div.innerText = item.text;
+        btn.innerText = `0 / ${item.count}`;
 
-    const box = document.createElement("div");
-    box.className = "zikr-box";
-
-    const text = document.createElement("p");
-    text.innerText = zikr;
-
-    const btn = document.createElement("button");
-    btn.className = "counter-btn";
-    btn.innerText = "0 / 3";
-
-    btn.onclick = function () {
-        if (count < 3) {
+        btn.onclick = () => {
             count++;
-            btn.innerText = count + " / 3";
-        }
+            btn.innerText = `${count} / ${item.count}`;
 
-        if (count === 3) {
-            btn.innerText = "✔";
-            btn.classList.add("done");
-            btn.disabled = true;
-
-            completedCount++;
-
-            // إذا كل الأذكار خلصت
-            if (completedCount === data.list.length) {
-                setTimeout(() => {
-                    window.location.href = "index.html";
-                }, 1000); // يرجع بعد ثانية
+            if (count === item.count) {
+                btn.disabled = true;
             }
-        }
-    };
+        };
 
-    box.appendChild(text);
-    box.appendChild(btn);
-    container.appendChild(box);
-});
+        container.appendChild(div);
+        container.appendChild(btn);
+    });
 }
-
 
