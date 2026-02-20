@@ -77,22 +77,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
