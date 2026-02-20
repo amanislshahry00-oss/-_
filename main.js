@@ -1,4 +1,3 @@
-// الوضع صباح/ليل تلقائي
 const hour = new Date().getHours();
 const body = document.body;
 const modeTitle = document.getElementById("modeTitle");
@@ -11,7 +10,6 @@ if (hour >= 5 && hour < 17) {
     modeTitle.innerText = "رحلة أذكار المساء";
 }
 
-// الأقمار
 const moons = document.querySelectorAll(".moon");
 
 moons.forEach((moon, index) => {
