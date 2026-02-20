@@ -32,7 +32,9 @@ if (document.getElementById("azkarContainer")) {
 
     const type = localStorage.getItem("type");
     const data = azkarData[type];
-    if (!data) return;
+    if (!data) {
+    console.log("No data found");
+} else {
     document.getElementById("pageTitle").innerText = data.title;
 
     const container = document.getElementById("azkarContainer");
@@ -81,6 +83,7 @@ data.list.forEach(zikr => {
     container.appendChild(box);
 });
 }
+
 
 
 
