@@ -1,78 +1,142 @@
-/* خطوط وألوان */
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
 
-:root {
-  --color-bg-light: #fdf6e3;
-  --color-bg-dark: #0a1d3f;
-  --color-text-light: #0a1d3f;
-  --color-text-dark: #fdf6e3;
-  --color-accent: #ffca28;
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   font-family: 'Cairo', sans-serif;
-  background: var(--color-bg-dark);
-  color: var(--color-text-dark);
-  transition: background-color 0.5s ease, color 0.5s ease;
+  background: linear-gradient(135deg, #0a1d3f 0%, #10294b 100%);
+  color: #fff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
 header {
+  background-color: rgba(0,0,0,0.6);
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+
+.navbar ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+  justify-content: center;
+  gap: 2rem;
 }
 
-header h1 {
-  font-weight: 700;
-  font-size: 2.5rem;
-  color: var(--color-accent);
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
 }
 
-#toggleTheme {
-  font-size: 1.8rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--color-accent);
-  transition: transform 0.3s ease;
-}
-
-#toggleTheme:hover {
-  transform: rotate(20deg);
+.navbar a:hover,
+.navbar a.active {
+  background-color: #ffca28;
+  color: #0a1d3f;
+  box-shadow: 0 6px 8px #ffca28;
 }
 
 main {
   flex-grow: 1;
+  padding: 2rem 1rem;
+  max-width: 900px;
+  margin: auto;
   display: flex;
   flex-direction: column;
+  gap: 2rem;
+}
+
+/* الصفحة الرئيسية */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.intro h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffca28;
+  margin-bottom: 0.5rem;
+}
+
+.intro p {
+  font-size: 1.3rem;
+  max-width: 600px;
+  text-align: center;
+  line-height: 1.5;
+  color: #ddd;
+}
+
+.buttons {
+  display: flex;
   gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-/* السماء */
-.sky {
+.btn {
+  background-color: #ffca28;
+  color: #0a1d3f;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 6px 12px rgba(255, 202, 40, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px rgba(255, 202, 40, 0.9);
+}
+
+/* القمر */
+.moon-sky {
   position: relative;
-  height: 250px;
-  background: radial-gradient(circle at center, #222e50, #0a1d3f 80%);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 0 20px rgba(255 255 255 / 0.3);
+  width: 300px;
+  height: 300px;
 }
 
-/* نجوم متلألئة */
+.bigMoon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, #fff7a8 40%, #fbbf24 90%);
+  border-radius: 50%;
+  box-shadow: 0 0 40px 12px #ffea75;
+  transform: translate(-50%, -50%);
+  animation: glow 5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  0% {
+    filter: drop-shadow(0 0 8px #ffea75);
+  }
+  100% {
+    filter: drop-shadow(0 0 25px #ffea75);
+  }
+}
+
+/* النجوم */
 .stars {
   position: absolute;
   width: 100%;
@@ -88,115 +152,68 @@ main {
     600px 60px white,
     720px 90px white;
   animation: twinkle 3s infinite alternate ease-in-out;
+  z-index: -1;
 }
 
 @keyframes twinkle {
-  0% {opacity: 0.3;}
-  100% {opacity: 1;}
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
-/* القمر الكبير */
-.bigMoon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 160px;
-  height: 160px;
-  background: radial-gradient(circle, #fff7a8 40%, #fbbf24 90%);
-  border-radius: 50%;
-  box-shadow: 0 0 30px 8px #ffea75;
-  transform: translate(-50%, -50%);
-  animation: glow 4s infinite alternate ease-in-out;
+/* صفحات الأذكار */
+.content-container h1 {
+  color: #ffca28;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 
-@keyframes glow {
-  0% {filter: drop-shadow(0 0 5px #ffea75);}
-  100% {filter: drop-shadow(0 0 20px #ffea75);}
-}
-
-/* التنقل */
-.sections {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.sectionBtn {
-  background-color: var(--color-accent);
-  color: var(--color-bg-dark);
-  border: none;
-  padding: 0.7rem 1.4rem;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.sectionBtn:hover,
-.sectionBtn.active {
-  background-color: #ffeb3b;
-  transform: scale(1.05);
-  outline: none;
-}
-
-/* محتوى الأذكار */
-#content {
+.adhkar-text {
+  font-size: 1.3rem;
+  line-height: 2;
   background: rgba(255 255 255 / 0.1);
-  padding: 1rem 1.5rem;
-  border-radius: 12px;
-  min-height: 180px;
-  font-size: 1.25rem;
-  line-height: 1.6;
-  color: var(--color-accent);
-  box-shadow: inset 0 0 8px rgba(255 255 255 / 0.3);
-  overflow-y: auto;
+  padding: 1.5rem 2rem;
+  border-radius: 15px;
+  box-shadow: inset 0 0 15px rgba(255 255 255 / 0.3);
   user-select: text;
 }
 
-/* فووتر */
+/* فوتر */
 footer {
   text-align: center;
-  padding: 1rem 0;
+  padding: 1rem;
   font-size: 0.9rem;
-  color: var(--color-accent);
+  color: #ffca28;
 }
 
-/* الوضع النهاري */
-body.light-theme {
-  background: var(--color-bg-light);
-  color: var(--color-text-light);
-}
-
-body.light-theme header h1 {
-  color: var(--color-text-light);
-}
-
-body.light-theme .sections .sectionBtn {
-  background-color: var(--color-text-light);
-  color: var(--color-bg-light);
-}
-
-body.light-theme .sections .sectionBtn:hover,
-body.light-theme .sections .sectionBtn.active {
-  background-color: #c2a90e;
-  color: var(--color-bg-light);
-}
-
-body.light-theme #content {
-  background: rgba(10 29 63 / 0.1);
-  color: var(--color-text-light);
-  box-shadow: inset 0 0 8px rgba(10 29 63 / 0.3);
-}
-
-/* استجابة الهواتف */
+/* استجابة */
 @media (max-width: 600px) {
-  header h1 {
+  .navbar ul {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  main {
+    padding: 1rem;
+  }
+  .intro h1 {
     font-size: 2rem;
   }
-  .sectionBtn {
-    flex: 1 1 100%;
+  .btn {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+  .moon-sky {
+    width: 200px;
+    height: 200px;
+  }
+  .bigMoon {
+    width: 120px;
+    height: 120px;
+  }
+  .adhkar-text {
+    font-size: 1rem;
   }
 }
