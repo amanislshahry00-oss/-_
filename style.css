@@ -79,18 +79,7 @@ header nav a.active {
   z-index: -1;
 }
 
-.bigMoon {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #fff7a8 40%, #fbbf24 90%);
-  box-shadow: 0 0 40px 10px #ffea75;
-  animation: moonGlow 4s ease-in-out infinite alternate;
-}
+
 
 @keyframes moonGlow {
   0% { filter: drop-shadow(0 0 10px #ffea75); }
