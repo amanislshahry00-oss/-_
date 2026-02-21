@@ -14,7 +14,7 @@ body {
   flex-direction: column;
 
   /* صورة خلفية */
-  background-image: url('https://www.shutterstock.com/image-vector/night-sky-clouds-stars-full-260nw-1137808829.jpg'); /* ضع رابط الصورة هنا */
+  background-image: url('https://images.unsplash.com/photo-1454177697940-c43d9f9a7307?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* ضع رابط الصورة هنا */
   background-size: cover;      /* تجعل الصورة تغطي كل الصفحة */
   background-position: center; /* تمركز الصورة */
   background-repeat: no-repeat;
