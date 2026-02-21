@@ -3,45 +3,45 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>رحلة الأذكار - موقع أذكار احترافي</title>
+<title>رحلة الأذكار - الصفحة الرئيسية</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<div class="container">
+<header>
+  <nav class="navbar">
+    <ul>
+      <li><a href="index.html" class="active">الرئيسية</a></li>
+      <li><a href="morning.html">أذكار الصباح</a></li>
+      <li><a href="evening.html">أذكار المساء</a></li>
+      <li><a href="sleep.html">أذكار النوم</a></li>
+      <li><a href="travel.html">أذكار السفر</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <header>
+<main class="home-container">
+  <section class="intro">
     <h1>رحلة الأذكار</h1>
-    <button id="toggleTheme" aria-label="تبديل وضع النهار والليل">🌙</button>
-  </header>
+    <p>مرحبًا بك في موقع رحلة الأذكار، حيث تجد أذكارك اليومية في تصميم هادئ وسلس.</p>
+    <div class="buttons">
+      <a href="morning.html" class="btn">أذكار الصباح</a>
+      <a href="evening.html" class="btn">أذكار المساء</a>
+      <a href="sleep.html" class="btn">أذكار النوم</a>
+      <a href="travel.html" class="btn">أذكار السفر</a>
+    </div>
+  </section>
 
-  <main>
-    <section class="sky">
-      <div class="stars"></div>
-      <div class="bigMoon"></div>
-    </section>
+  <section class="moon-sky">
+    <div class="bigMoon"></div>
+    <div class="stars"></div>
+  </section>
+</main>
 
-    <nav class="sections">
-      <button class="sectionBtn active" data-section="morning">أذكار الصباح</button>
-      <button class="sectionBtn" data-section="evening">أذكار المساء</button>
-      <button class="sectionBtn" data-section="sleep">أذكار النوم</button>
-      <button class="sectionBtn" data-section="travel">أذكار السفر</button>
-    </nav>
-
-    <article id="content" tabindex="0" aria-live="polite">
-      <!-- يظهر هنا نص الأذكار -->
-    </article>
-
-  </main>
-
-  <footer>
-    <p>© 2026 رحلة الأذكار. جميع الحقوق محفوظة.</p>
-  </footer>
-
-</div>
-
-<script src="main.js"></script>
+<footer>
+  <p>© 2026 رحلة الأذكار. جميع الحقوق محفوظة.</p>
+</footer>
 
 </body>
 </html>
