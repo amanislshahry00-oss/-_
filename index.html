@@ -7,30 +7,25 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <div class="container">
 
-    <h1 class="title" id="modeTitle">رحلة الأذكار</h1>
+    <h1 class="title">رحلة الأذكار</h1>
 
     <div class="sky">
-
         <!-- نجوم -->
-        <div class="twinkle"></div>
+        <div class="stars"></div>
 
-        <!-- أقمار صغيرة مرتبة بالقوس -->
-        <div class="moonArc">
-            <div class="moon" data-key="0"></div>
-            <div class="moon" data-key="1"></div>
-            <div class="moon" data-key="2"></div>
-            <div class="moon" data-key="3"></div>
-            <div class="moon" data-key="4"></div>
-            <div class="moon" data-key="5"></div>
-            <div class="moon" data-key="6"></div>
-            <div class="moon" data-key="7"></div>
-        </div>
+        <!-- القمر الكبير في منتصف الشاشة -->
+        <div class="bigMoon"></div>
+    </div>
 
-        <!-- القمر الكبير -->
-        <div class="halfbigMoon"></div>
-
+    <!-- أزرار الأقسام -->
+    <div class="sections">
+        <button class="sectionBtn" data-section="morning">أذكار الصباح</button>
+        <button class="sectionBtn" data-section="evening">أذكار المساء</button>
+        <button class="sectionBtn" data-section="sleep">أذكار النوم</button>
+        <button class="sectionBtn" data-section="travel">أذكار السفر</button>
     </div>
 
 </div>
@@ -38,8 +33,3 @@
 <script src="main.js"></script>
 </body>
 </html>
-
-
-
-
-
