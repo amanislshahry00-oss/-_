@@ -1,90 +1,202 @@
-/* إعدادات أساسية */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Cairo', sans-serif;
-    background: linear-gradient(to bottom, #0a1d3f, #10294b);
-    color: white;
-    height: 100vh;
-    overflow-x: hidden;
+/* خطوط وألوان */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+:root {
+  --color-bg-light: #fdf6e3;
+  --color-bg-dark: #0a1d3f;
+  --color-text-light: #0a1d3f;
+  --color-text-dark: #fdf6e3;
+  --color-accent: #ffca28;
 }
 
-/* الكونتينر */
+body {
+  margin: 0;
+  font-family: 'Cairo', sans-serif;
+  background: var(--color-bg-dark);
+  color: var(--color-text-dark);
+  transition: background-color 0.5s ease, color 0.5s ease;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .container {
-    position: relative;
-    text-align: center;
-    height: 100%;
+  max-width: 900px;
+  margin: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-/* العنوان */
-.title {
-    font-size: 3rem;
-    margin-top: 20px;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-/* السماء والنجوم */
+header h1 {
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--color-accent);
+}
+
+#toggleTheme {
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-accent);
+  transition: transform 0.3s ease;
+}
+
+#toggleTheme:hover {
+  transform: rotate(20deg);
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* السماء */
 .sky {
-    position: relative;
-    width: 100%;
-    height: 60%;
-    overflow: hidden;
+  position: relative;
+  height: 250px;
+  background: radial-gradient(circle at center, #222e50, #0a1d3f 80%);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(255 255 255 / 0.3);
 }
 
-/* نجوم بسيطة */
+/* نجوم متلألئة */
 .stars {
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    box-shadow: 
-        20px 30px white,
-        100px 50px white,
-        200px 80px white,
-        300px 120px white,
-        400px 200px white,
-        500px 150px white;
-    animation: twinkle 2s infinite alternate;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  box-shadow:
+    30px 20px white,
+    120px 50px white,
+    220px 70px white,
+    350px 90px white,
+    470px 40px white,
+    530px 120px white,
+    600px 60px white,
+    720px 90px white;
+  animation: twinkle 3s infinite alternate ease-in-out;
 }
 
 @keyframes twinkle {
-    0% { opacity: 0.5; }
-    100% { opacity: 1; }
+  0% {opacity: 0.3;}
+  100% {opacity: 1;}
 }
 
 /* القمر الكبير */
 .bigMoon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background: yellow;
-    box-shadow: 0 0 30px 5px #fff9c4;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, #fff7a8 40%, #fbbf24 90%);
+  border-radius: 50%;
+  box-shadow: 0 0 30px 8px #ffea75;
+  transform: translate(-50%, -50%);
+  animation: glow 4s infinite alternate ease-in-out;
 }
 
-/* أزرار الأقسام */
+@keyframes glow {
+  0% {filter: drop-shadow(0 0 5px #ffea75);}
+  100% {filter: drop-shadow(0 0 20px #ffea75);}
+}
+
+/* التنقل */
 .sections {
-    position: absolute;
-    bottom: 30px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .sectionBtn {
-    padding: 15px 25px;
-    border: none;
-    border-radius: 10px;
-    background-color: #ffc107;
-    color: #0a1d3f;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s;
+  background-color: var(--color-accent);
+  color: var(--color-bg-dark);
+  border: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.sectionBtn:hover {
-    transform: scale(1.1);
-    background-color: #ffeb3b;
+.sectionBtn:hover,
+.sectionBtn.active {
+  background-color: #ffeb3b;
+  transform: scale(1.05);
+  outline: none;
+}
+
+/* محتوى الأذكار */
+#content {
+  background: rgba(255 255 255 / 0.1);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  min-height: 180px;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--color-accent);
+  box-shadow: inset 0 0 8px rgba(255 255 255 / 0.3);
+  overflow-y: auto;
+  user-select: text;
+}
+
+/* فووتر */
+footer {
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  color: var(--color-accent);
+}
+
+/* الوضع النهاري */
+body.light-theme {
+  background: var(--color-bg-light);
+  color: var(--color-text-light);
+}
+
+body.light-theme header h1 {
+  color: var(--color-text-light);
+}
+
+body.light-theme .sections .sectionBtn {
+  background-color: var(--color-text-light);
+  color: var(--color-bg-light);
+}
+
+body.light-theme .sections .sectionBtn:hover,
+body.light-theme .sections .sectionBtn.active {
+  background-color: #c2a90e;
+  color: var(--color-bg-light);
+}
+
+body.light-theme #content {
+  background: rgba(10 29 63 / 0.1);
+  color: var(--color-text-light);
+  box-shadow: inset 0 0 8px rgba(10 29 63 / 0.3);
+}
+
+/* استجابة الهواتف */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 2rem;
+  }
+  .sectionBtn {
+    flex: 1 1 100%;
+  }
 }
