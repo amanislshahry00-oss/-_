@@ -9,11 +9,17 @@
 
 body {
   font-family: 'Cairo', sans-serif;
-  background: linear-gradient(to bottom, #0b1a33, #102a50);
-  color: #fff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+
+  /* صورة خلفية */
+  background-image: url('https://www.shutterstock.com/image-vector/night-sky-clouds-stars-full-260nw-1137808829.jpg'); /* ضع رابط الصورة هنا */
+  background-size: cover;      /* تجعل الصورة تغطي كل الصفحة */
+  background-position: center; /* تمركز الصورة */
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* تبقي ثابتة عند التمرير */
+  color: #fff;
 }
 
 /* هيدر */
