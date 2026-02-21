@@ -1,36 +1,47 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>رحلة الأذكار</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>رحلة الأذكار - موقع أذكار احترافي</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
 <div class="container">
 
-    <h1 class="title">رحلة الأذكار</h1>
+  <header>
+    <h1>رحلة الأذكار</h1>
+    <button id="toggleTheme" aria-label="تبديل وضع النهار والليل">🌙</button>
+  </header>
 
-    <div class="sky">
-        <!-- نجوم -->
-        <div class="stars"></div>
+  <main>
+    <section class="sky">
+      <div class="stars"></div>
+      <div class="bigMoon"></div>
+    </section>
 
-        <!-- القمر الكبير في منتصف الشاشة -->
-        <div class="bigMoon"></div>
-    </div>
+    <nav class="sections">
+      <button class="sectionBtn active" data-section="morning">أذكار الصباح</button>
+      <button class="sectionBtn" data-section="evening">أذكار المساء</button>
+      <button class="sectionBtn" data-section="sleep">أذكار النوم</button>
+      <button class="sectionBtn" data-section="travel">أذكار السفر</button>
+    </nav>
 
-    <!-- أزرار الأقسام -->
-    <div class="sections">
-        <button class="sectionBtn" data-section="morning">أذكار الصباح</button>
-        <button class="sectionBtn" data-section="evening">أذكار المساء</button>
-        <button class="sectionBtn" data-section="sleep">أذكار النوم</button>
-        <button class="sectionBtn" data-section="travel">أذكار السفر</button>
-    </div>
-<div id="content" class="content-area"></div>
+    <article id="content" tabindex="0" aria-live="polite">
+      <!-- يظهر هنا نص الأذكار -->
+    </article>
+
+  </main>
+
+  <footer>
+    <p>© 2026 رحلة الأذكار. جميع الحقوق محفوظة.</p>
+  </footer>
+
 </div>
+
 <script src="main.js"></script>
+
 </body>
 </html>
-
-
